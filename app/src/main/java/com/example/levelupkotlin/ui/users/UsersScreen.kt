@@ -37,12 +37,12 @@ fun UsersScreen(
         topBar = {
             TopAppBar(
                 title = { Text("Comunidad Level-Up") },
-                // 👇 CAMBIO: Añadir el botón de acción en la barra
                 actions = {
                     IconButton(onClick = onNavigateToRegistration) {
                         Icon(
                             imageVector = Icons.Default.PersonAdd,
-                            contentDescription = "Agregar nuevo usuario"
+                            contentDescription = "Agregar nuevo usuario",
+                            tint = MaterialTheme.colorScheme.secondary
                         )
                     }
                 }

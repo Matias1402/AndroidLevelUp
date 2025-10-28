@@ -2,9 +2,11 @@ package com.example.levelupkotlin.ui.users
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -46,7 +48,13 @@ fun RegistrationScreen(
             supportingText = {
                 formState.nameError?.let { Text(it) }
             },
-            singleLine = true
+            singleLine = true,
+            modifier = Modifier.fillMaxWidth(),
+            colors = TextFieldDefaults.colors(
+                cursorColor = MaterialTheme.colorScheme.secondary,
+                focusedIndicatorColor = MaterialTheme.colorScheme.secondary,
+                focusedLabelColor = MaterialTheme.colorScheme.secondary
+            )
         )
         Spacer(Modifier.height(16.dp))
 
@@ -58,11 +66,23 @@ fun RegistrationScreen(
             supportingText = {
                 formState.ageError?.let { Text(it) }
             },
-            singleLine = true
+            singleLine = true,
+            modifier = Modifier.fillMaxWidth(),
+            colors = TextFieldDefaults.colors(
+                cursorColor = MaterialTheme.colorScheme.secondary,
+                focusedIndicatorColor = MaterialTheme.colorScheme.secondary,
+                focusedLabelColor = MaterialTheme.colorScheme.secondary
+            )
         )
         Spacer(Modifier.height(24.dp))
 
-        Button(onClick = { viewModel.registerUser() }) {
+        Button(
+            onClick = { viewModel.registerUser() },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.secondary,
+                contentColor = MaterialTheme.colorScheme.onSecondary
+            )
+        ) {
             Text("Registrarse")
         }
     }
