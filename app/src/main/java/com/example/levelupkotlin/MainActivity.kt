@@ -1,47 +1,38 @@
 package com.example.levelupkotlin
 
+import com.example.levelupkotlin.ui.users.UsersScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.levelupkotlin.ui.theme.LevelUpKotlinTheme
-
+import androidx.room.Room
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.levelupkotlin.data.local.AppDatabase
+import com.example.levelupkotlin.data.repository.UserRepository
+import com.example.levelupkotlin.viewmodel.UserViewModel
+import com.example.levelupkotlin.viewmodel.UserViewModelFactory
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        val db = Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java,
+            "my_database"
+        ).build()
+        val repo = UserRepository(db.userDao())
+        val factory = UserViewModelFactory(repo)
         setContent {
+            val viewModel: UserViewModel = viewModel(factory = factory)
             LevelUpKotlinTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    UsersScreen(viewModel,
+                        Modifier.fillMaxSize().padding(innerPadding))
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    LevelUpKotlinTheme {
-        Greeting("Android")
     }
 }
