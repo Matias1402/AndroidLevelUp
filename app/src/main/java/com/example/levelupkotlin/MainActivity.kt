@@ -37,8 +37,8 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val viewModel: UserViewModel = viewModel(factory = factory)
-            LevelUpKotlinTheme {
-                // 👇 AÑADÍ EL SURFACE PARA QUE TUS COLORES DE FONDO FUNCIONEN
+            LevelUpKotlinTheme(darkTheme = true) {
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -57,7 +57,6 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable("users") {
-                            // 👇 CAMBIO CLAVE: AÑADIMOS LA ACCIÓN DE NAVEGACIÓN
                             UsersScreen(
                                 viewModel = viewModel,
                                 modifier = Modifier.fillMaxSize(),
